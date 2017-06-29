@@ -6,7 +6,6 @@
 #define DOUT  3
 #define CLK  2
 
-
 /*
  * First send full throttle
  * Turn on ESC and motor (3 beeps means all electronics are connected properly)
