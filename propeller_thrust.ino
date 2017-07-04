@@ -1,5 +1,5 @@
+#include <HX711.h>
 #include <Servo.h>
-#include "HX711.h" 
 #include <SPI.h>
 #include <SD.h>
 
@@ -51,7 +51,7 @@ void setup() {
   
   Serial.print("Initializing SD card...");
 
-  if (!SD.begin(4)) {
+  if (!SD.begin()) {
     Serial.println("initialization failed!");
     return;
   }
@@ -96,7 +96,7 @@ void loop() {
     recordedData = SD.open(fileName, FILE_WRITE);
     
     int throttle;
-    Serial.println("\nWhat is your throttle? (1-150, negative for 0)");
+    Serial.print("\nWhat is your throttle? (1-150, negative for 0) ");
     //read throttle as int from serial
     //keep reading if parseInt times out or invalid value is inputted
     while (!throttle) {
@@ -111,24 +111,31 @@ void loop() {
       throttle = 149;
     }
 
-    //write throttle to the ESC
     esc.write(throttle);
+    Serial.println(throttle);
+    
     //read load cell
+
+    
     //write data
     Serial.println("1  |Time: " + (String)(millis() / 1000.0) + "|HX711: " + (String)scale.get_units() + "|Throttle: " + (String)((throttle/150.0) * 100));
-    recordedData.println("1  |Time: " + (String)(millis() / 1000.0) + "|HX711: " + (String)scale.get_units() + "|Throttle: " + (String)((throttle/150.0) * 100));
+    recordedData.println("1\t" + (String)(millis() / 1000.0) + "\t" + (String)scale.get_units() + "\t" + (String)((throttle/150.0) * 100));
 
     delay(1000);
     //read load cell
+
+    
     //write data
     Serial.println("2  |Time: " + (String)(millis() / 1000.0) + "|HX711: " + (String)scale.get_units() + "|Throttle: " + (String)((throttle/150.0) * 100));
-    recordedData.println("2  |Time: " + (String)(millis() / 1000.0) + "|HX711: " + (String)scale.get_units() + "|Throttle: " + (String)((throttle/150.0) * 100));
+    recordedData.println("2\t" + (String)(millis() / 1000.0) + "\t" + (String)scale.get_units() + "\t" + (String)((throttle/150.0) * 100));
     
     delay(2000);
     //read load cell
+
+    
     //write data
     Serial.println("3  |Time: " + (String)(millis() / 1000.0) + "|HX711: " + (String)scale.get_units() + "|Throttle: " + (String)((throttle/150.0) * 100));
-    recordedData.println("3  |Time: " + (String)(millis() / 1000.0) + "|HX711: " + (String)scale.get_units() + "|Throttle: " + (String)((throttle/150.0) * 100));
+    recordedData.println("3\t" + (String)(millis() / 1000.0) + "\t" + (String)scale.get_units() + "\t" + (String)((throttle/150.0) * 100));
     
     Serial.println("ESC currently running at " + (String)((throttle/150.0) * 100) + "% max throttle");
 
