@@ -1,4 +1,4 @@
-Reading	Time	HX711	Throttle
+Reading	Time	Thrust	Throttle
 1	7.14	 INF	36.67
 2	8.14	 INF	36.67
 3	10.14	 INF	36.67
